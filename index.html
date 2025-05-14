@@ -1,0 +1,274 @@
+function test(actual, expected) {
+  if (JSON.stringify(actual) === JSON.stringify(expected)) {
+    console.log("OK! Test PASSED.");
+  } else {
+    console.error("Test FAILED. Try again!");
+    console.log("    actual: ", actual);
+    console.log("  expected: ", expected);
+    console.trace();
+  }
+}
+
+//基礎
+//1 以下のオブジェクトにある挨拶をすべてコンソールに出力する関数 sayHellos を宣言してください。
+//なお、この関数は返り値がないので直接テストはできません。コンソールの表示を見て確認することでテストとしましょう
+
+const hellos = {
+  English: "Hello",
+  Japanese: "Konnichiwa",
+  German: "Hallo",
+  Spanish: "Hola",
+  Arabic: "Ahlan wa sahlan",
+  Chinese: "Nihao",
+};
+
+/*
+ * @returns {undefined} この関数は挨拶をコンソールに表示するだけで、返り値は必要ありません。
+ */
+
+// ここにコードを書きましょう
+
+sayHellos();　// 実際にこの関数を呼び出すと、以下のようにコンソールに表示されることを確認しましょう。
+// "Hello"
+// "Konnichiwa"
+// "Hallo"
+// "Hola"
+// "Ahlan wa sahlan"
+// "Nihao"
+
+//2 関数 getKeys を宣言してください。
+/**
+ * @param {object} ???
+ * @returns {Array<string>} 与えられたオブジェクトのすべてのキーが入った配列
+ */
+
+// ここにコードを書きましょう
+
+const object1 = { a: 1, b: 2, c: "hello" };
+const object2 = { 1: "a", 2: "b", hello: "c" };
+
+test(getKeys(object1), ["a", "b", "c"]);
+test(getKeys(object2), ["1", "2", "hello"]);
+
+//3 関数 getValues を宣言してください。テストでは 2 問目で宣言した変数 object1 と object2 を使いましょう。
+/**
+ * @param {object} ???
+ * @returns {Array<any>} 与えられたオブジェクトのすべての値が入った配列
+ */
+
+// ここにコードを書きましょう
+
+test(getValues(object1), [1, 2, "hello"]);
+test(getValues(object2), ["a", "b", "c"]);
+
+//4printAllValues は、与えられたオブジェクトのすべての値を表示する関数です。
+//しかし、以下のコードではうまくいきません。何が問題なのでしょうか。正しく動くように修正してください。
+
+function printAllValues(object) {
+  for (const key in object) {
+    console.log(object.key);
+  }
+}
+
+const myObject = { foo: 1, bar: 2, key: 3, delta: 4, lee: 5 };
+
+printAllValues(myObject); // 1 2 3 4 5 と順番に表示されたら成功です！
+
+//5 関数 swapPairs を宣言してください。
+/**
+ * @param {object} オブジェクト。ただし値はすべて異なるものとする。
+ * @returns {object} 与えられたオブジェクトのキーと値を入れ替えた、新しいオブジェクト
+ */
+
+// ここにコードを書きましょう
+
+const object3 = { a: 1, b: 2, c: 3, d: 4 };
+const object4 = { 1: "a", 2: "b", 3: "c", 4: "d" };
+
+test(swapPairs(object3), { 1: "a", 2: "b", 3: "c", 4: "d" });
+test(swapPairs(object4), { a: "1", b: "2", c: "3", d: "4" });
+
+//6 配列で for...in ループを使用することはできるでしょうか。簡単な配列を作って、実際に試してみてください。
+//7 オブジェクトで for...of ループを使用することはできるでしょうか。簡単なオブジェクトを作って、実際に試してみてください。
+
+//復習: 配列とオブジェクト
+//1 関数 getFirstObjectValues を宣言してください。
+/**
+ * @param {Array<object>} オブジェクトを要素に持つ配列
+ * @returns {Array<any>} 与えられた配列の最初のオブジェクトのすべての値が入った新しい配列
+ */
+// ここにコードを書きましょう。
+
+const collection = [{ a: 1, b: 2 }, { a: 3, b: 3 }, { b: 4 }, { a: 100 }];
+
+test(getFirstObjectValues(collection), [1, 2]);
+test(getFirstObjectValues(collection.slice(1)), [3, 3]);
+
+//2 関数 getAllValues を宣言してください。
+//for...in と for...of 、両方の for ループを使用する必要があるかもしれません！テストには上の問題で出ている collection という配列を使ってください。
+/**
+ * @param {Array<object>} オブジェクトを要素に持つ配列
+ * @returns {Array<any>} すべてのオブジェクトのすべての値が入った配列
+ */
+
+// ここにコードを書きましょう
+
+test(getAllValues(collection), [1, 2, 3, 3, 4, 100]);
+test(getAllValues(collection.slice(1)), [3, 3, 4, 100]);
+
+//3 関数 selectValues を宣言してください。テストには上の問題で出ている collection という配列を使ってください。
+/**
+ * @param {Array<object>} オブジェクトを要素に持つ配列
+ * @param {string} 取り出したいキーの名前
+ * @returns {Array<any>} すべてのオブジェクトにおいて第 2 引数のキーに対応する値が入った配列
+ */
+
+// ここにコードを書きましょう
+
+test(selectValues(collection, "a"), [1, 3, 100]);
+test(selectValues(collection, "b"), [2, 3, 4]);
+
+//中級
+//1 基礎問題で出てきた swapPair の進化系である関数 swapPairs2 を宣言してください。
+/**
+ * @param {object}
+ * @returns {object} 与えられたオブジェクトのキーと値を入れ替えた新しいオブジェクト。ただし、重複する値がある場合は、最初のキーと値のペアのみを使用し、その後のペアは無視すること。
+ */
+
+// ここにコードを書きましょう
+
+const object5 = { a: 1, b: 2, c: 3, d: 1 };
+const object6 = { a: 1, b: 1, c: 1, d: 1 };
+
+// `a: 1` と `d: 1` はどちらも値が `1` で重複しているので最初のキーと値のペアである `a: 1` を使い、`d: 1` は無視する。
+test(swapPairs2(object5), { 1: "a", 2: "b", 3: "c" });
+
+// object6も 1 という値が何度も重複してでてくる。したがって、2 回目以降、1 が値になるキーと値のペアは無視される。
+test(swapPairs2(object6), { 1: "a" });
+
+//2基礎問題で出てきた getAllValues の進化系である関数 getAllValues2 を宣言してください。
+/**
+ * @param {Array<object>}
+ * @returns {Array<any>} 与えられた配列内のすべてのオブジェクトのすべての値が入った配列。重複した値がある場合は 1 つだけ残す。
+ */
+
+// ここにコードを書きましょう
+
+const collection2 = [{ a: 1, b: 2, c: 2 }, { d: 1, e: 3 }, { f: 4, g: 5 }];
+
+test(getAllValues2(collection2), [1, 2, 3, 4, 5]);
+test(getAllValues2(collection2.slice(1)), [1, 3, 4, 5]);
+
+//3 関数 getRandomHello を宣言してください。
+アドバイス： Math.random() メソッドが使えるかもしれません。MDM で使い方を調べてみまし
+/**
+ * @returns {string} 基礎演習 1 で使った `hellos` オブジェクトの中の言葉をランダムに選んだもの
+ */
+
+// ここにコードを書きましょう
+
+// ランダムな出力をする関数をテストすることは困難です。
+// ここでは、コンソールの表示を見て、テストとしましょう。
+console.log(getRandomHello()); // "Konnichiawa"、"Hola" 等、実行する度にランダムな言葉が表示されるはずです。
+
+//応用
+//1 swapPair2 の進化系である関数 swapPairs3 を宣言してください
+/**
+ * @param {object} ???
+ * @returns {object} 与えられたオブジェクトのキーと値を入れ替えた新しいオブジェクト。キーと値を入れ替えたとき、同じキーに対する値が複数になった場合はそれらの値を配列に入れること。
+ */
+
+// ここにコードを書きましょう。
+
+const object7 = { a: 1, b: 2, c: 3, d: 1 };
+const object8 = { a: 1, b: 1, c: 1, d: 1 };
+
+test(swapPairs3(object7), { 1: ["a", "d"], 2: "b", 3: "c" });
+test(swapPairs3(object8), { 1: ["a", "b", "c", "d"] });
+
+//2
+関数 noDuplicateValues を宣言してください。この問題はなかなかの難問です。
+2 つのループを使用する必要があるかもしれません。テストに使われている object7 と object8 は上の問題で使ったものです。
+/**
+ * @param {object}
+ * @returns {object} 引数のオブジェクトとほぼ同じ形の新しいオブジェクトだが、同じ値を持つキーと値のペアは削除する。
+ */
+
+// ここにコードを書きましょう
+
+const object9 = { a: 1, b: 2, c: 3, d: 4 };
+
+test(noDuplicateValues(object9), object3);
+test(noDuplicateValues(object7), { b: 2, c: 3 });
+test(noDuplicateValues(object8), {});
+
+//ナイトメア
+//1 関数 getDepth を宣言してください。
+/**
+ * @param {object}
+ * @returns {number} 引数のオブジェクトの深さ（何層になっているか）を返す。入れ子になったオブジェクトが複数ある場合は、一番深い層の数を返してください。
+ */
+
+// ここにコードを書きましょう
+
+const nestedObject1 = { a: "A" };
+const nestedObject2 = { a: "A", b: { c: "C" } };
+const nestedObject3 = { a: "A", b: { c: "C" }, d: { e: { f: "F" } } };
+const nestedObjectZ = {
+  z: {
+    y: {
+      x: {
+        w: {
+          v: {
+            u: {
+              t: {
+                s: {
+                  r: {
+                    q: {
+                      p: {
+                        o: {
+                          n: {
+                            m: {
+                              l: {
+                                k: {
+                                  j: {
+                                    i: {
+                                      h: {
+                                        g: {
+                                          f: {
+                                            e: "E",
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+};
+
+// nestedObject1 の深さは 1 です
+test(getDepth(nestedObject1), 1);
+
+// nestedObject2 の深さは 2 です
+test(getDepth(nestedObject2), 2);
+
+// nestedObject3 の深さは 3 です
+test(getDepth(nestedObject3), 3);
+
+// nestedObjectZ の深さは 22 です。
+test(getDepth(nestedObjectZ), 22);
+  
