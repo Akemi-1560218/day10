@@ -1,0 +1,82 @@
+//参照渡しと値渡し
+//1
+let theLoneliestNumber = 1;
+
+let aFriend = theLoneliestNumber;
+
+console.log(theLoneliestNumber); // ???
+console.log(aFriend); // ???
+console.log(theLoneliestNumber === aFriend); // ???
+
+//2
+const kermit = [
+  "red",
+  "orange",
+  "yellow",
+  "green",
+  "blue",
+  "indigo",
+  "violet",
+];
+const missPiggy = kermit.slice();
+
+console.log(kermit); // ???
+console.log(missPiggy); // ???
+console.log(kermit === missPiggy); // ???
+
+//3
+let mamas = "Monday";
+
+let papas = mamas;
+
+papas += ", so good to me.";
+
+console.log(mamas); // ???
+console.log(papas); // ???
+console.log(mamas === papas); // ???
+
+//4
+const theFabFour = {
+  bass: ["paul"],
+  drums: ["ringo"],
+  guitar: ["george", "john"],
+  vocals: ["george", "john", "paul", "ringo"],
+};
+
+const theFifthBeatle = theFabFour;
+theFifthBeatle.guitar.push("beau");
+
+console.log(theFabFour); // ???
+console.log(theFifthBeatle); // ???
+console.log(theFabFour === theFifthBeatle); // ???
+
+console.log(theFabFour.guitar); // ???
+console.log(theFifthBeatle.guitar); // ???
+console.log(theFabFour.guitar === theFifthBeatle.guitar); // ???
+
+//5
+let isHot = true;
+let isCold = !isHot;
+
+isHot = !isHot;
+
+console.log(isHot); // ???
+console.log(isCold); // ???
+console.log(isHot === isCold); // ???
+
+//6
+const easyAs = [
+  ["a", "b", "c"],
+  [1, 2, 3],
+  ["do", "re"],
+];
+const simpleAs = easyAs.slice();
+simpleAs[2].push("mi");
+
+console.log(easyAs); // ???
+console.log(simpleAs); // ???
+console.log(easyAs === simpleAs); // ???
+
+console.log(easyAs[2]); // ???
+console.log(simpleAs[2]); // ???
+console.log(easyAs[2] === simpleAs[2]); // ???
